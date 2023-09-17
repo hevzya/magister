@@ -70,7 +70,7 @@ namespace Magister.Controllers
                 return $"There is no {model.Role} role in the database";
             }
 
-            var existingUser = _userManager.FindByEmailAsync(model.Email);
+            var existingUser = await _userManager.FindByEmailAsync(model.Email);
 
             if(existingUser is not null)
             {

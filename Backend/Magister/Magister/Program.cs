@@ -1,3 +1,12 @@
+using Magister.DataAccess;
+using Magister.DbInitializer;
+using Magister.Services;
+using Magister.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Magister.Extentions;
+using Magister.DataAccess.Entities;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +16,26 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+
+builder.Services.AddDbContext<MagisterContext>(option => option.UseNpgsql("Host=localhost;Port=5432;Database=postgres_magister;Username=postgres;Password=Qwe123!!"));
+
+builder.Services.AddScoped<DbContext, MagisterContext>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+
+builder.Services.AddIdentity<User, Role>(opts =>
+{
+    // Настройка перевірки пароля
+    opts.Password.RequiredLength = 4;
+    opts.Password.RequireNonAlphanumeric = false;
+    opts.Password.RequireLowercase = false;
+    opts.Password.RequireUppercase = false;
+    opts.Password.RequireDigit = false;
+})
+.AddEntityFrameworkStores<MagisterContext>()
+.AddDefaultTokenProviders();
+
+var app = builder.Build().SeedDatabase();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -17,6 +45,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// allow origin http://localhost:4200/
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 app.UseAuthorization();
 

@@ -9,13 +9,13 @@
           <form>
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="email" id="form1Example13" class="form-control form-control-lg" />
+              <input [(ngModel)]="email" [ngModelOptions]="{standalone: true}" type="email" id="form1Example13" class="form-control form-control-lg" />
               <label class="form-label" for="form1Example13">Email address</label>
             </div>
   
             <!-- Password input -->
             <div class="form-outline mb-4">
-              <input type="password" id="form1Example23" class="form-control form-control-lg" />
+              <input [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="password" id="form1Example23" class="form-control form-control-lg" />
               <label class="form-label" for="form1Example23">Password</label>
             </div>
   
@@ -29,7 +29,7 @@
             </div>
   
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+            <button type="submit" (click)="onLogin()" class="btn btn-primary btn-lg btn-block">Sign in</button>
   
             <div class="divider d-flex align-items-center my-4">
               <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>

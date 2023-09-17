@@ -5,18 +5,13 @@ using Microsoft.EntityFrameworkCore;
 namespace Magister.DataAccess
 {
     // Represents Database
-    public class MagisterContext : IdentityDbContext<User>
+    public class MagisterContext : IdentityDbContext<User, Role, Guid>
     {
         public DbSet<Subject> Subjects { get; set; }
 
-        public MagisterContext()
+        public MagisterContext(DbContextOptions<MagisterContext> options) : base(options)
         {
             Database.EnsureCreated();
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=Qwe123!!");
         }
     }
 }

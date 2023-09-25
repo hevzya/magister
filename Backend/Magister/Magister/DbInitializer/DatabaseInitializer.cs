@@ -36,7 +36,10 @@ namespace Magister.DbInitializer
             {
                 Id = Guid.NewGuid(),
                 UserName = "Vasyan",
-                Email = "vasyan@gmail.com"
+                Email = "vasyan@gmail.com",
+                Address = "Рівне Чорновола 64",
+                Age = 27,
+                Gender = "Ч"
             }, "Qwe123!!");
 
             await _userManager.CreateAsync(new User

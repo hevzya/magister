@@ -16,8 +16,9 @@ export class LoginComponent {
 
   readonly API_URL = 'https://localhost:7211/api/';
   
-  public email = '';
-  public password = '';
+  public email = 'admin@gmail.com';
+  public password = 'Qwe123!!';
+  public rememberMe = false;
 
   constructor(
     private http: HttpClient,
@@ -40,8 +41,6 @@ export class LoginComponent {
 
       const userName = decoded["sub"];
       const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-  
-      alert(`hello ${userName}, you are an ${role}`);
 
       if(role === 'admin') {
         this.router.navigateByUrl('/admin');

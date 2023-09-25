@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-@import '~mdb-ui-kit/css/mdb.min.css';
+@import "./assets/css/bootstrap.min.css";
+@import "./assets/css/icons.min.css";
+@import "./assets/css/app.min.css";
+
+//@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+// TODO: remove this style, we don't need it
+// @import '~mdb-ui-kit/css/mdb.min.css';

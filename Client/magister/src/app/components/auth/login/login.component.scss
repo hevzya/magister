@@ -1,7 +1,7 @@
-.divider:after,
-.divider:before {
-content: "";
-flex: 1;
-height: 1px;
-background: #eee;
+.auth-body {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background-size: cover;
+    background-image: url(https://c4.wallpaperflare.com/wallpaper/489/876/39/elden-ring-from-software-fromsoftware-hd-wallpaper-preview.jpg);
 }

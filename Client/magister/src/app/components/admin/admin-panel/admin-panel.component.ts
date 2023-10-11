@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { TokenService } from 'src/services/token.service';
 
 export interface StudentModel {
   name?: string,
@@ -37,7 +39,9 @@ export class AdminPanelComponent implements OnInit {
   };
 
   constructor(
-    private http: HttpClient) {
+    private http: HttpClient,
+    private tokenService: TokenService,
+    private router: Router) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -66,4 +70,10 @@ export class AdminPanelComponent implements OnInit {
 
   }
   
+  logout() {
+    this.tokenService.removeToken();
+    this.router.navigate(['login']);
+  }
+
+
 }

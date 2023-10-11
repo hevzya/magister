@@ -10,6 +10,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
 import { ScheduleComponent } from './components/student/schedule/schedule.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { ACCESS_TOKEN } from 'src/services/token.service';
 
 @NgModule({
   declarations: [
@@ -17,14 +20,20 @@ import { ScheduleComponent } from './components/student/schedule/schedule.compon
     LoginComponent,
     RegisterComponent,
     AdminPanelComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => { return localStorage.getItem(ACCESS_TOKEN) },
+      }
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

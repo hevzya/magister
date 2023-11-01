@@ -19,6 +19,7 @@
         public Teacher Teacher { get; set; }
 
         public ICollection<Homework> Homeworks { get; set; }
+        public ICollection<Visiting> Visitings { get; set; }
 
     }
 }

@@ -14,6 +14,7 @@ namespace Magister.DataAccess
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Homework> Homeworks { get; set; }
         public DbSet<StudentHomework> StudentHomeworks { get; set; }
+        public DbSet<Visiting> Visitings { get; set; }
 
 
         public MagisterContext(DbContextOptions<MagisterContext> options) : base(options)

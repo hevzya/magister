@@ -70,10 +70,7 @@ export class AdminPanelComponent implements OnInit {
 
   }
   
-  logout() {
-    this.tokenService.removeToken();
-    this.router.navigate(['login']);
-  }
+
 
 
 }

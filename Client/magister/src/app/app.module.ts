@@ -13,6 +13,13 @@ import { ScheduleComponent } from './components/student/schedule/schedule.compon
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { ACCESS_TOKEN } from 'src/services/token.service';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CommonModule } from '@angular/common';
+import { CalendarHeaderComponent } from './components/utils/calendar-header';
 
 @NgModule({
   declarations: [
@@ -21,9 +28,13 @@ import { ACCESS_TOKEN } from 'src/services/token.service';
     RegisterComponent,
     AdminPanelComponent,
     ScheduleComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HeaderComponent,
+    SidebarComponent,
+    CalendarHeaderComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -33,6 +44,11 @@ import { ACCESS_TOKEN } from 'src/services/token.service';
       config: {
         tokenGetter: () => { return localStorage.getItem(ACCESS_TOKEN) },
       }
+    }),
+    BrowserAnimationsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
     }),
   ],
   providers: [],

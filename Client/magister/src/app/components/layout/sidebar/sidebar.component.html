@@ -13,14 +13,11 @@
                             <!-- User details -->
                             <div class="user-profile text-center mt-3">
                                 <div class="">
-                                    <img src="https://pyxis.nymag.com/v1/imgs/a59/8f2/af4ffa51c4bbd612e05e8a0f26cba27f5c-shrek.rhorizontal.w700.jpg"
+                                    <img src="https://cdn.iconscout.com/icon/free/png-512/free-avatar-370-456322.png"
                                         alt="" class="avatar-md rounded-circle">
                                 </div>
                                 <div class="mt-3">
-                                    <h4 class="font-size-16 mb-1">Шрек</h4>
-                                    <span class="text-muted"><i
-                                            class="ri-record-circle-line align-middle font-size-14 text-success"></i>
-                                        Онлайн</span>
+                                    <h4 class="font-size-16 mb-1">{{email}}</h4>
                                 </div>
                             </div>
 
@@ -31,10 +28,30 @@
                                     <li class="menu-title">Меню</li>
 
                                     <li class="mm-active">
+                                        <a routerLink="/homework" class="waves-effect active">
+                                            <i class="ri-dashboard-line"></i>
+                                            <span>Домашня робота</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="mm-active">
+                                        <a routerLink="/schedule" class="waves-effect active">
+                                            <i class="ri-dashboard-line"></i>
+                                            <span>Розклад занять</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="mm-active">
                                         <a href="index.html" class="waves-effect active">
-                                            <i class="ri-dashboard-line"></i><span
-                                                class="badge rounded-pill bg-success float-end">3</span>
-                                            <span>Студенти</span>
+                                            <i class="ri-dashboard-line"></i>
+                                            <span>Статистика</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="mm-active">
+                                        <a routerLink="/lesson" class="waves-effect active">
+                                            <i class="ri-dashboard-line"></i>
+                                            <span>Заняття</span>
                                         </a>
                                     </li>
 

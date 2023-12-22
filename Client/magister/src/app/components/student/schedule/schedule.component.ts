@@ -53,7 +53,7 @@ export class ScheduleComponent implements OnInit {
   
       res.forEach(lesson => {
         console.log(parseISO(lesson.lessonStartDate!));
-        this.events.push({  
+        this.events.push({
           title: lesson.theme! + ' [' + datePipe.transform(parseISO(lesson.lessonStartDate!),'HH:mm') + ']',
           color: colors.blue,
           start: parseISO(lesson.lessonStartDate!)

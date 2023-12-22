@@ -1,0 +1,109 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Уроки</h4>
+                <div class="table-responsive" style="max-width: 100%;">
+                    <table class="table table-striped" style="width: 1500px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col" >Кабінет</th>
+                                <th scope="col" >Тема</th>
+                                <th scope="col" >Опис</th>
+                                <th scope="col" >Вчитель</th>
+                                <th scope="col" >Група</th>
+                                <th scope="col" >Предмет</th>
+                                <th scope="col" >Початок заняття</th>
+                                <th scope="col" >Редагування</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                <tr *ngFor="let lesson of lessons; index as i">
+                                    <th scope="row">{{ i+1 }}</th>
+                                    <td style="width: 10%">
+                                       {{lesson.cabinet}} 
+                                    </td>
+                                    <td style="width: 10%">
+                                        {{lesson.theme}} 
+                                     </td>
+                                     <td style="width: 40%">
+                                        {{lesson.description }} 
+                                     </td>
+                                     <td style="width: 10%">
+                                        {{lesson.teacher.surname + ' ' + lesson.teacher.name }} 
+                                     </td>
+                                     <td style="width: 10%">
+                                        {{lesson.group.groupName}} 
+                                     </td>
+                                     <td style="width: 10%">
+                                        {{lesson.subject.name }} 
+                                     </td>
+                                     <td style="width: 10%">
+                                        {{lesson.lessonStartDate | date:'M/d/yy, H:mm' }} 
+                                     </td>
+                                     <td style="width: 10%">
+                                        <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                     </td>
+                                </tr>
+                            
+                        </tbody>
+                    </table>
+
+                    
+                </div>
+
+                <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [collectionSize]="total" [(page)]="currentPage" [pageSize]="pageSize" (pageChange)="refresh()">
+                    </ngb-pagination>
+            
+                    <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize" (ngModelChange)="refresh()">
+                        <option [ngValue]="5">5</option>
+                        <option [ngValue]="10">10</option>
+                        <option [ngValue]="20">20</option>
+                        <option [ngValue]="50">50</option>
+                        <option [ngValue]="100">100</option>
+                    </select>
+                </div>
+
+
+<!-- 
+                <div class="table-responsive">
+                    <table class="table table-editable table-nowrap align-middle table-edits">
+                        <thead>
+                            <tr style="cursor: pointer;">
+                                <th>ID</th>
+                                <th>Ім'я</th>
+                                <th>Вік</th>
+                                <th>Стать</th>
+                                <th>Імейл</th>
+                                <th>Номер телефону</th>
+                                <th>Редагувати</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let lesson of lessons; index as i" data-id="1"
+                                style="cursor: pointer;">
+                                <td style="width: 80px">{{ i + 1 }}</td>
+                                <td>{{ lesson.Cabinet ?? '-' }}</td>
+                                <td>{{ lesson.Description ?? '-' }}</td>
+                                <td>{{ lesson.LessonStartDate ?? '-' }}</td>
+
+                                <td style="width: 100px">
+                                    <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div> -->
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

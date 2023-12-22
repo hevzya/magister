@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Magister.Extentions;
 using Magister.DataAccess.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData.ModelBuilder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<MagisterContext>(option => option.UseNpgsql("Host=localhost;Port=5432;Database=postgres_magister;Username=postgres;Password=Qwe123!!"));
@@ -35,14 +37,25 @@ builder.Services.AddIdentity<User, Role>(opts =>
 .AddEntityFrameworkStores<MagisterContext>()
 .AddDefaultTokenProviders();
 
+var modelBuilder = new ODataConventionModelBuilder();
+modelBuilder.EntitySet<Lesson>("Lessons");
+modelBuilder.EnableLowerCamelCase();
+var edmModel = modelBuilder.GetEdmModel();
+
+// Register OData service.
+builder.Services.AddControllers().AddOData(
+    options => options.EnableQueryFeatures().AddRouteComponents(edmModel));
+
+
+
 var app = builder.Build().SeedDatabase();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
 app.UseHttpsRedirection();
 

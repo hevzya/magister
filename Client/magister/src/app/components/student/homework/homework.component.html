@@ -1,0 +1,58 @@
+<div id="layout-wrapper">
+
+    <app-header></app-header>
+
+    <app-sidebar></app-sidebar>
+
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <h2 class="mb-4">Мої предмети</h2>
+
+                <div class="row">
+                    <div class="col-4" *ngFor="let subject of subjects">
+
+                        <div *ngIf="subject.failedHomeworks === 0 && subject.missingHomeworks === 0" class="card bg-transparent border border-success">
+                            <div class="card-header bg-transparent border-success">
+                                <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>{{subject.name}}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Всі завдання виконано</p>
+                            </div>
+                        </div>
+
+                        <div *ngIf="subject.failedHomeworks === 0 && subject.missingHomeworks > 0" class="card bg-transparent border border-warning">
+                            <div class="card-header bg-transparent border-warning">
+                                <h5 class="my-0 text-warning"><i class="mdi mdi-alert-outline me-3"></i>{{subject.name}}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Потрібно виконати завдань: {{ subject.missingHomeworks }}</p>
+                            </div>
+                        </div>
+
+                        <div *ngIf="subject.failedHomeworks > 0 " class="card bg-transparent border border-danger">
+                            <div class="card-header bg-transparent border-danger">
+                                <h5 class="my-0 text-danger"><i class="mdi mdi-block-helper me-3"></i>{{subject.name}}</h5>
+                            </div>
+                            <div class="card-body">
+   
+                                <p class="card-text">Є прострочені домашні завдання: {{ subject.failedHomeworks }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                
+               
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

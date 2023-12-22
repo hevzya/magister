@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenService } from 'src/services/token.service';
 
@@ -7,10 +7,20 @@ import { TokenService } from 'src/services/token.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
+
+  email: string = '';
 
   constructor(private tokenService: TokenService,
     private router: Router) { }
+
+
+  ngOnInit(): void {
+    var decoded = this.tokenService.getTokenPayload();
+    this.email = 'Адмін';
+  }
+
+
 
   logout() {
     this.tokenService.removeToken();

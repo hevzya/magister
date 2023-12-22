@@ -1,0 +1,101 @@
+<div id="layout-wrapper">
+
+    <app-header></app-header>
+
+    <app-sidebar></app-sidebar>
+
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <h4 class="mb-2">Заняття</h4>
+
+                <div class="card">
+                    <div class="card-body">
+                        
+                        
+                    
+                        <div class="row">
+                            <div class="col-3">
+                                <h4 class="card-title">Група: 1-A</h4>
+
+                            </div>
+                            <div class="col-3">
+                                <h4 class="card-title">Предмет: Фізика</h4>
+                            </div>
+                            <div class="col-3">
+                                
+                            </div>
+                            <div class="col-3">
+                                <h4 class="card-title">14:00 - 15:20</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-9">
+                                <input class="form-control" type="text" placeholder="Тема заняття" id="example-text-input">
+
+                            </div>
+                            <div class="col-3">
+                                <button class="btn btn-primary w-100">
+                                    Зберегти
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive mt-3">
+                            <table class="table table-bordered mb-0">
+
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Студент</th>
+                                        <th>Оцінка за заняття</th>
+                                        <th>Оцінка за самостійну роботу</th>
+                                        <th>Присутність</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let student of students; index as i">
+                                        <th scope="row">{{i + 1}}</th>
+                                        <td>{{ student.name ?? '-' }}</td>
+                                        <td>
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected="">-</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="3">4</option>
+                                                <option value="3">5</option>
+                                            </select>
+
+                                        </td>
+                                        <td>
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected="">-</option>
+                                                <option class="1" value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="3">4</option>
+                                                <option value="3">5</option>
+                                            </select>
+                                        </td>
+                                        <td class="text-center">
+                                            <input class="form-check-input" type="checkbox" id="formCheck1">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

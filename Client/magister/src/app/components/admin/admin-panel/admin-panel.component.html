@@ -18,14 +18,12 @@
                                 <!-- User details -->
                                 <div class="user-profile text-center mt-3">
                                     <div class="">
-                                        <img src="https://pyxis.nymag.com/v1/imgs/a59/8f2/af4ffa51c4bbd612e05e8a0f26cba27f5c-shrek.rhorizontal.w700.jpg"
+                                        <img src="https://cdn.iconscout.com/icon/free/png-512/free-avatar-370-456322.png"
                                             alt="" class="avatar-md rounded-circle">
                                     </div>
                                     <div class="mt-3">
-                                        <h4 class="font-size-16 mb-1">Шрек</h4>
-                                        <span class="text-muted"><i
-                                                class="ri-record-circle-line align-middle font-size-14 text-success"></i>
-                                            Онлайн</span>
+                                        <h4 class="font-size-16 mb-1">Адміністратор</h4>
+                                        
                                     </div>
                                 </div>
 
@@ -70,155 +68,11 @@
 
         <div class="page-content">
             <div class="container-fluid">
+                
+                <router-outlet></router-outlet>
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <p>
-                                    <a class="btn btn-primary mt-1 me-1 collapsed w-100" data-bs-toggle="collapse"
-                                        href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                        <i class="ri-user-add-line"></i> Додати користувача
-                                    </a>
-                                </p>
-                                <div class="collapse" id="collapseExample" style="">
-                                    <h4 class="card-title">Додати нового користувача</h4>
-                                    <p>якийсь опис</p>
-                                    <div class="row mb-3">
-                                        <label for="example-text-input" class="col-sm-2 col-form-label">Логін</label>
-                                        <div class="col-sm-10">
-                                            <input [(ngModel)]="createUserRequest.name" class="form-control" type="text"
-                                                placeholder="Ім'я користувача" id="example-text-input">
-                                        </div>
-                                    </div>
-                                    <!-- end row -->
-                                    <div class="row mb-3">
-                                        <label for="example-search-input" class="col-sm-2 col-form-label">Імейл</label>
-                                        <div class="col-sm-10">
-                                            <input [(ngModel)]="createUserRequest.email" class="form-control"
-                                                type="search" placeholder="Імейл" id="example-search-input">
-                                        </div>
-                                    </div>
-                                    <!-- end row -->
-                                    <div class="row mb-3">
-                                        <label for="example-tel-input" class="col-sm-2 col-form-label">Номер
-                                            телефону</label>
-                                        <div class="col-sm-10">
-                                            <input [(ngModel)]="createUserRequest.phoneNumber" class="form-control"
-                                                type="tel" placeholder="38-(067)-695-5526" id="example-tel-input">
-                                        </div>
-                                    </div>
-
-                                    <!-- end row -->
-                                    <div class="row mb-3">
-                                        <label for="example-password-input"
-                                            class="col-sm-2 col-form-label">Пароль</label>
-                                        <div class="col-sm-10">
-                                            <input [(ngModel)]="createUserRequest.password" class="form-control"
-                                                type="text" value="hunter2" id="example-password-input">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Роль</label>
-                                        <div class="col-sm-10">
-                                            <select [(ngModel)]="createUserRequest.role" class="form-select"
-                                                aria-label="Default select example">
-                                                <option selected="">Виберіть роль</option>
-                                                <option value="student">Студент</option>
-                                                <option value="teacher">Викладач</option>
-                                                <option value="admin">Адміністратор</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <button (click)="onCreateUser()" class="btn btn-primary"
-                                            type="submit">Створити</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <h4 class="mb-sm-0">Список студентів</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <h4 class="card-title">Студенти</h4>
-
-                                <div class="table-responsive">
-                                    <table class="table table-editable table-nowrap align-middle table-edits">
-                                        <thead>
-                                            <tr style="cursor: pointer;">
-                                                <th>ID</th>
-                                                <th>Ім'я</th>
-                                                <th>Вік</th>
-                                                <th>Стать</th>
-                                                <th>Імейл</th>
-                                                <th>Номер телефону</th>
-                                                <th>Редагувати</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr *ngFor="let student of students; index as i" data-id="1"
-                                                style="cursor: pointer;">
-                                                <td style="width: 80px">{{ i + 1 }}</td>
-                                                <td>{{ student.name ?? '-' }}</td>
-                                                <td>{{ student.age ?? '-' }}</td>
-                                                <td>{{ student.gender ?? '-' }}</td>
-
-                                                <!-- if student.email == null show '-' -->
-                                                <td>{{ student.email ?? '-'}}</td>
-                                                <td>{{ student.phoneNumber ?? '-' }}</td>
-                                                <td style="width: 100px">
-                                                    <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
-                                                        <i class="fas fa-pencil-alt"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- end col -->
-                </div> <!-- end row -->
-
-
-
-            </div> <!-- container-fluid -->
+            <div>
         </div>
-
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <script>document.write(new Date().getFullYear())</script>2023 © Upcube.
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="text-sm-end d-none d-sm-block">
-                            Crafted with <i class="mdi mdi-heart text-danger"></i> by <a
-                                href="https://1.envato.market/themesdesign" target="_blank">Themesdesign</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
 
     </div>
     <!-- end main content-->

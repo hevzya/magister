@@ -27,7 +27,7 @@
                                 <ul class="metismenu list-unstyled mm-show" id="side-menu">
                                     <li class="menu-title">Меню</li>
 
-                                    <li class="mm-active">
+                                    <li *ngIf="role == STUDENT_ROLE" class="mm-active">
                                         <a routerLink="/homework" class="waves-effect active">
                                             <i class="ri-dashboard-line"></i>
                                             <span>Домашня робота</span>
@@ -41,17 +41,10 @@
                                         </a>
                                     </li>
 
-                                    <li class="mm-active">
-                                        <a href="index.html" class="waves-effect active">
+                                    <li *ngIf="role == STUDENT_ROLE" class="mm-active">
+                                        <a routerLink="/marks" class="waves-effect active">
                                             <i class="ri-dashboard-line"></i>
-                                            <span>Статистика</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="mm-active">
-                                        <a routerLink="/lesson" class="waves-effect active">
-                                            <i class="ri-dashboard-line"></i>
-                                            <span>Заняття</span>
+                                            <span>Мої оцінки</span>
                                         </a>
                                     </li>
 

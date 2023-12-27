@@ -10,8 +10,10 @@ import { LessonComponent } from './components/teacher/lesson/lesson.component';
 import { HomeworkComponent } from './components/student/homework/homework.component';
 import { AdminLessonsComponent } from './components/admin/admin-panel/entities/admin-lessons/admin-lessons.component';
 import { AdminStudentsComponent } from './components/admin/admin-panel/entities/admin-students/admin-students.component';
+import { MarksComponent } from './components/student/marks/marks.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/schedule', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
@@ -19,7 +21,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
     {
-      path: 'lessons', component: AdminLessonsComponent
+      path: 'lessons', component: AdminLessonsComponent, 
     },
     {
       path: 'students', component: AdminStudentsComponent
@@ -27,8 +29,9 @@ const routes: Routes = [
   ]
   },
   { path: 'schedule', component: ScheduleComponent, canActivate: [AuthGuard] },
-  { path: 'lesson', component: LessonComponent, canActivate: [AuthGuard] },
+  { path: 'lesson/:id', component: LessonComponent, canActivate: [AuthGuard] },
   { path: 'homework', component: HomeworkComponent, canActivate: [AuthGuard] },
+  { path: 'marks', component: MarksComponent, canActivate: [AuthGuard] },
   { path: '**', component: NotFoundComponent }
 ];
 

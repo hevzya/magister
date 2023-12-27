@@ -4,19 +4,22 @@ import { API_URL } from '../../../../../consts/consts';
 import { OdataResult } from '../../../../utils/odataHelpers';
 
 export interface LessonModel {
-  cabinet: string,
-  description: string,
-  lessonStartDate: Date,
-  theme: string,
-  teacher: {
-    name: string,
-    surname: string
+  id? : string;
+  cabinet?: string,
+  description?: string,
+  lessonStartDate?: Date,
+  duration?: number,
+  theme?: string,
+  teacher?: {
+    name?: string,
+    surname?: string
   },
-  group: {
-    groupName: string
+  group?: {
+    id?: string,
+    groupName?: string
   },
-  subject: {
-    name: string
+  subject?: {
+    name?: string
   }
 }
 
@@ -27,7 +30,7 @@ export interface LessonModel {
 })
 export class AdminLessonsComponent implements OnInit {
   
-  lessons: LessonModel[] = [];
+  data: LessonModel[] = [];
   
   total: number = 0;
   currentPage: number = 1;
@@ -59,7 +62,7 @@ export class AdminLessonsComponent implements OnInit {
     var res = await this.http.get<OdataResult>(url).toPromise();
     this.total = res?.['@odata.count']!;
     if (res) {
-      this.lessons = res.value;
+      this.data = res.value;
     } else {
       alert("Сталася помилка");
     }

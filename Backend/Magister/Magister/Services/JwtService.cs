@@ -16,13 +16,14 @@ namespace Magister.Services
             _configuration = configuration;
         }
 
-        public string GenerateJwtToken(string email, Guid userId, IList<string> roles)
+        public string GenerateJwtToken(string email, Guid userId, string userName, IList<string> roles)
         {
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, userId.ToString())
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.Name, userName)
             };
 
             if (roles.Count() != 0)

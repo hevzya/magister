@@ -2,6 +2,6 @@
 {
     public interface IJwtService
     {
-        string GenerateJwtToken(string email, Guid userId, IList<string> roles);
+        string GenerateJwtToken(string email, Guid userId, string userName, IList<string> roles);
     }
 }

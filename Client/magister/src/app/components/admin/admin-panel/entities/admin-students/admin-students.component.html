@@ -1,1 +1,78 @@
-<p>admin-students works!</p>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Уроки</h4>
+                <div class="table-responsive" style="max-width: 100%;">
+                    <table class="table table-striped" style="min-width: 1500px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col" >Ім'я</th>
+                                <th scope="col" >Дата народження</th>
+                                <th scope="col" >Телефон</th>
+                                <th scope="col" >Адреса</th>
+                                <th scope="col" >Вік</th>
+                                <th scope="col" >Стать</th>
+                                <th scope="col" >Група</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                                <tr *ngFor="let student of data; index as i">
+                                    <th scope="row">{{ i+1 }}</th>
+                                    <td >
+                                       {{student.name + ' ' + student.surname}} 
+                                    </td>
+                                    <td >
+                                        {{student.dateOfBirth | date:'M/d/yy' }} 
+                                     </td>
+                                     <td >
+                                        {{student.phoneNumber }} 
+                                     </td>
+                                     <td >
+                                        {{student.address }} 
+                                     </td>
+                                     <td >
+                                        {{student.user.age }} 
+                                     </td>
+                                     <td >
+                                        {{student.user.gender }} 
+                                     </td>
+                                     <td >
+                                        {{student.group.groupName }} 
+                                     </td>
+                                     <td style="width: 5%">
+                                        <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                     </td>
+                                     <td style="width: 5%">
+                                        <a (click)="remove(student.id)" class="btn btn-outline-secondary btn-sm edit" title="Delete">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                     </td>
+                                </tr>
+                            
+                        </tbody>
+                    </table>
+
+                    
+                </div>
+
+                <div class="d-flex justify-content-between p-2">
+                    <ngb-pagination [collectionSize]="total" [(page)]="currentPage" [pageSize]="pageSize" (pageChange)="refresh()">
+                    </ngb-pagination>
+            
+                    <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="pageSize" (ngModelChange)="refresh()">
+                        <option [ngValue]="5">5</option>
+                        <option [ngValue]="10">10</option>
+                        <option [ngValue]="20">20</option>
+                        <option [ngValue]="50">50</option>
+                        <option [ngValue]="100">100</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

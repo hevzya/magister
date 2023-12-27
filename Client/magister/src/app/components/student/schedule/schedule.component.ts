@@ -6,6 +6,10 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cal
 import { EventColor } from 'calendar-utils';
 import { addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, parseISO, startOfDay, subDays } from 'date-fns';
 import { Subject } from 'rxjs';
+import { API_URL, STUDENT_ROLE } from 'src/app/consts/consts';
+import { OdataResult } from '../../utils/odataHelpers';
+import { Router } from '@angular/router';
+import { Claims, TokenService } from 'src/services/token.service';
 
 
 export const colors: any = {
@@ -23,15 +27,6 @@ export const colors: any = {
   },
 };
 
-export interface LessonModel {
-  id?: string,
-  cabinet?: string,
-  description?: string,
-  duration?: number,
-  lessonStartDate?: string,
-  theme?: string
-};
-
 @Component({
   selector: 'app-schedule',
   templateUrl: './schedule.component.html',
@@ -39,25 +34,29 @@ export interface LessonModel {
   styleUrls: ['./schedule.component.scss']
 })
 export class ScheduleComponent implements OnInit {
+  constructor(private http: HttpClient, private router: Router, private tokenService: TokenService) {}
 
-  readonly API_URL = 'https://localhost:7211/api/';
-
-  constructor(private http: HttpClient) {}
+  claims: Claims = {};
 
   async ngOnInit(): Promise<void> {
     
-    const res = await this.http.get<LessonModel[]>(this.API_URL + 'Lessons/GetLessons').toPromise();
+    this.claims = this.tokenService.getClaims();
+
+    const res = await this.http.get<OdataResult>(API_URL + 'Lessons').toPromise();
     const datePipe = new DatePipe('en-US');
     if (res) {
     
-  
-      res.forEach(lesson => {
-        console.log(parseISO(lesson.lessonStartDate!));
+      
+      res.value.forEach(lesson => {
+        // console.log(parseISO(lesson.lessonStartDate!));
         this.events.push({
           title: lesson.theme! + ' [' + datePipe.transform(parseISO(lesson.lessonStartDate!),'HH:mm') + ']',
           color: colors.blue,
-          start: parseISO(lesson.lessonStartDate!)
-        })
+          start: parseISO(lesson.lessonStartDate!),
+          id: lesson.id
+        });
+
+        this.refresh.next();
 
       });
     }
@@ -79,6 +78,13 @@ export class ScheduleComponent implements OnInit {
   refresh = new Subject<void>();
 
   eventClicked({ event }: { event: CalendarEvent }): void {
+
+    if(this.claims.role === STUDENT_ROLE) {
+      return;
+    }
+
+    this.router.navigateByUrl('lesson/'+event.id)
+
     console.log('Event clicked', event);
   }
 

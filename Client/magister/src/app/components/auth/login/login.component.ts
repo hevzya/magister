@@ -48,6 +48,10 @@ export class LoginComponent {
       if (role == 'admin') {
         this.router.navigateByUrl('/admin');
       }
+
+      if (role == 'student') {
+        this.router.navigateByUrl('/marks');
+      }
     }
   }
 

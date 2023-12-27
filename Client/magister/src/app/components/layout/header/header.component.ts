@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from 'src/services/token.service';
+import { ADMIN_ROLE } from 'src/app/consts/consts';
+import { Claims, TokenService } from 'src/services/token.service';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +12,18 @@ export class HeaderComponent implements OnInit {
 
   email: string = '';
 
+  claims: Claims = {}
+
+  ADMIN_ROLE = ADMIN_ROLE;
+
   constructor(private tokenService: TokenService,
     private router: Router) { }
 
 
   ngOnInit(): void {
-    var decoded = this.tokenService.getTokenPayload();
-    this.email = 'Адмін';
+    this.claims = this.tokenService.getClaims();
+
+    this.email = this.claims.name!;
   }
 
 

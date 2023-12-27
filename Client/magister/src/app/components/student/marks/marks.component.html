@@ -1,0 +1,122 @@
+<div id="layout-wrapper">
+
+    <app-header></app-header>
+
+    <app-sidebar></app-sidebar>
+
+    <div class="main-content">
+        <div class="page-content">
+            <div class="container-fluid">
+
+                <h2 class="mb-4">Мої оцінки</h2>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Виберіть предмет</label>
+                            <select (change)="selectSubject($event)" class="form-control">
+                                <option selected >Всі</option>
+                                <option [value]="subject.name" *ngFor="let subject of subjects">{{ subject.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #customCellTemplate let-day="day" let-locale="locale">
+                    <div class="cal-cell-top">
+                      <span class="cal-day-badge" [ngStyle]="{'background-color': event.color.primary}" *ngFor="let event of day.events"
+                        >{{ event.meta.mark }}</span
+                      >
+                      <span class="cal-day-number"
+                        >{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span
+                      >
+                    </div>
+
+                  </ng-template>
+
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <div class="btn-group">
+                        <div
+                          class="btn btn-primary"
+                          mwlCalendarPreviousView
+                          [view]="view"
+                          [(viewDate)]="viewDate"
+                        >
+                          Previous
+                        </div>
+                        <div
+                          class="btn btn-outline-secondary"
+                          mwlCalendarToday
+                          [(viewDate)]="viewDate"
+                        >
+                          Today
+                        </div>
+                        <div
+                          class="btn btn-primary"
+                          mwlCalendarNextView
+                          [view]="view"
+                          [(viewDate)]="viewDate"
+                        >
+                          Next
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <h3>{{ viewDate | calendarDate:('monthViewTitle') }}</h3>
+                    </div>
+                  </div>
+                  <br />
+
+                <div [ngSwitch]="view">
+                    <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate"
+                        [activeDayIsOpen]="true">
+                    </mwl-calendar-month-view>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-4" *ngFor="let subject of subjects">
+
+                        <div *ngIf="subject.failedHomeworks === 0 && subject.missingHomeworks === 0" class="card bg-transparent border border-success">
+                            <div class="card-header bg-transparent border-success">
+                                <h5 class="my-0 text-success"><i class="mdi mdi-check-all me-3"></i>{{subject.name}}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Всі завдання виконано</p>
+                            </div>
+                        </div>
+
+                        <div *ngIf="subject.failedHomeworks === 0 && subject.missingHomeworks > 0" class="card bg-transparent border border-warning">
+                            <div class="card-header bg-transparent border-warning">
+                                <h5 class="my-0 text-warning"><i class="mdi mdi-alert-outline me-3"></i>{{subject.name}}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Потрібно виконати завдань: {{ subject.missingHomeworks }}</p>
+                            </div>
+                        </div>
+
+                        <div *ngIf="subject.failedHomeworks > 0 " class="card bg-transparent border border-danger">
+                            <div class="card-header bg-transparent border-danger">
+                                <h5 class="my-0 text-danger"><i class="mdi mdi-block-helper me-3"></i>{{subject.name}}</h5>
+                            </div>
+                            <div class="card-body">
+   
+                                <p class="card-text">Є прострочені домашні завдання: {{ subject.failedHomeworks }}</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div> -->
+
+                
+               
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>

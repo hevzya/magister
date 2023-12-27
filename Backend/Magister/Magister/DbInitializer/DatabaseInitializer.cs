@@ -51,6 +51,7 @@ namespace Magister.DbInitializer
                 Id = Guid.NewGuid(),
                 UserName = "alex123",
                 Email = "alex@example.com",
+                Gender = "Male"
             }, "Qwe123!!");
 
             var alex123 = await _userManager.FindByEmailAsync("alex@example.com");
@@ -61,6 +62,7 @@ namespace Magister.DbInitializer
                 Id = Guid.NewGuid(),
                 UserName = "emily123",
                 Email = "emily@example.com",
+                Gender = "Female"
             }, "Qwe123!!");
 
             var emily123 = await _userManager.FindByEmailAsync("emily@example.com");
@@ -693,6 +695,59 @@ namespace Magister.DbInitializer
 
             await _context.Lessons.AddRangeAsync(lessons);
             await _context.SaveChangesAsync();
+
+            List<Lesson> lessonList = new List<Lesson>();
+            DateTime baseLessonStartDate = new DateTime(2023, 12, 1, 14,0,0).ToUniversalTime();
+            DateTime baseLessonStartDate2 = new DateTime(2023, 12, 1, 16,0,0).ToUniversalTime();
+
+            for (int i = 0; i < 40; i++)
+            {
+                baseLessonStartDate = baseLessonStartDate.AddDays(1);
+
+                if (baseLessonStartDate.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    baseLessonStartDate = baseLessonStartDate.AddDays(1); // Move to Monday
+                }
+                else if (baseLessonStartDate.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    baseLessonStartDate = baseLessonStartDate.AddDays(2); // Move to Monday
+                }
+
+                Lesson newLesson = new Lesson
+                {
+                    Cabinet = "101",
+                    Theme = "Introduction to Algebra",
+                    Description = "Understanding the basics of the process of photosynthesis.",
+                    Duration = 60,
+                    Group = await _context.Groups.FirstOrDefaultAsync(x => x.GroupName == "1-A"),
+                    LessonStartDate = baseLessonStartDate,
+                    Subject = await _context.Subjects.FirstOrDefaultAsync(x => x.Name == "Math"),
+                    Teacher = await _context.Teachers.FirstOrDefaultAsync(x => x.Name == "John Smith" && x.Surname == "Johnson"),
+                    Homeworks = new List<Homework>(),
+                    Visitings = new List<Visiting>()
+                };
+
+                var newLesson2 = new Lesson
+                {
+                    Cabinet = "104",
+                    Theme = "Atomic Structure",
+                    Description = "Understanding the structure of atoms and their components.",
+                    Duration = 90,
+                    Group = await _context.Groups.FirstOrDefaultAsync(x => x.GroupName == "1-A"),
+                    LessonStartDate = baseLessonStartDate.AddHours(2),
+                    Subject = await _context.Subjects.FirstOrDefaultAsync(x => x.Name == "Chemistry"),
+                    Teacher = await _context.Teachers.FirstOrDefaultAsync(x => x.Name == "Emma Wilson" && x.Surname == "Smith"),
+                    Homeworks = new List<Homework>(),
+                    Visitings = new List<Visiting>()
+                };
+
+                lessonList.Add(newLesson);
+                lessonList.Add(newLesson2);
+            }
+
+            await _context.Lessons.AddRangeAsync(lessonList);
+            await _context.SaveChangesAsync();
+
 
             var visitings = new List<Visiting>()
             {

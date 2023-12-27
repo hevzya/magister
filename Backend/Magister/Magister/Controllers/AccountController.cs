@@ -50,7 +50,7 @@ namespace Magister.Controllers
             }
 
             var roles = await _userManager.GetRolesAsync(user);
-            var token = _jwtService.GenerateJwtToken(user.Email, user.Id, roles);
+            var token = _jwtService.GenerateJwtToken(user.Email, user.Id, user.UserName, roles);
 
             //var refreshToken = await _jwtService.GenerateRefreshToken(user.Id);
 

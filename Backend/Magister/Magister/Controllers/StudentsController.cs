@@ -1,7 +1,9 @@
 ﻿using Magister.DataAccess;
 using Magister.DataAccess.Entities;
-using Magister.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Formatter;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Magister.Controllers
@@ -9,7 +11,7 @@ namespace Magister.Controllers
 
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class StudentsController
+    public class StudentsController : ODataController
     {
         private readonly MagisterContext _db;
         public StudentsController(MagisterContext db) 
@@ -18,17 +20,20 @@ namespace Magister.Controllers
         }
 
         [HttpGet]
-        public async Task<List<StudentModel>> GetStudents()
+        [EnableQuery]
+        public IQueryable<Student> GetStudents()
         {
-            return await _db.Users.Select(x => new StudentModel
-            {
-                Address = x.Address,
-                Age = x.Age,
-                Email = x.Email,
-                Gender = x.Gender,
-                Name = x.UserName,
-                PhoneNumber = x.PhoneNumber
-            }).ToListAsync();
+            return _db.Students;
+
+            //return await _db.Users.Select(x => new StudentModel
+            //{
+            //    Address = x.Address,
+            //    Age = x.Age,
+            //    Email = x.Email,
+            //    Gender = x.Gender,
+            //    Name = x.UserName,
+            //    PhoneNumber = x.PhoneNumber
+            //}).ToListAsync();
         }
     }
 }

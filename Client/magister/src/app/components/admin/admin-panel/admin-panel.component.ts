@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from 'src/services/token.service';
+import { STUDENT_ROLE, TEACHER_ROLE } from 'src/app/consts/consts';
+import { Claims, TokenService } from 'src/services/token.service';
 
 export interface StudentModel {
   name?: string,
@@ -38,6 +39,8 @@ export class AdminPanelComponent implements OnInit {
     role: 'student'
   };
 
+  claims: Claims = {};
+
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
@@ -45,6 +48,17 @@ export class AdminPanelComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
+    this.claims = this.tokenService.getClaims();
+
+    if(this.claims.role == STUDENT_ROLE) {
+      this.router.navigateByUrl('/');
+    }
+
+    if(this.claims.role == TEACHER_ROLE) {
+      this.router.navigateByUrl('/');
+    }
+
     await this.getStudents();
   }
 

@@ -20,7 +20,7 @@ builder.Services.AddControllers();
 
 
 builder.Services.AddDbContext<MagisterContext>(option => option.UseNpgsql("Host=localhost;Port=5432;Database=postgres_magister;Username=postgres;Password=Qwe123!!"));
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddScoped<DbContext, MagisterContext>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
@@ -39,6 +39,7 @@ builder.Services.AddIdentity<User, Role>(opts =>
 
 var modelBuilder = new ODataConventionModelBuilder();
 modelBuilder.EntitySet<Lesson>("Lessons");
+modelBuilder.EntitySet<Student>("Students");
 modelBuilder.EnableLowerCamelCase();
 var edmModel = modelBuilder.GetEdmModel();
 

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
-import { NgbAlertModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlertModule, NgbDatepickerModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminPanelComponent } from './components/admin/admin-panel/admin-panel.component';
 import { ScheduleComponent } from './components/student/schedule/schedule.component';
@@ -25,6 +25,8 @@ import { HomeworkComponent } from './components/student/homework/homework.compon
 import { AdminLessonsComponent } from './components/admin/admin-panel/entities/admin-lessons/admin-lessons.component';
 import { AdminStudentsComponent } from './components/admin/admin-panel/entities/admin-students/admin-students.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { MyErrorHandler } from './components/utils/error-handler';
+import { MarksComponent } from './components/student/marks/marks.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     LessonComponent,
     HomeworkComponent,
     AdminLessonsComponent,
-    AdminStudentsComponent
+    AdminStudentsComponent,
+    MarksComponent
   ],
   imports: [
     CommonModule,
@@ -60,6 +63,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
       useFactory: adapterFactory,
     }),
     NgbPaginationModule, NgbAlertModule,
+    NgbDatepickerModule,
     NgxDatatableModule.forRoot({
       messages: {
         emptyMessage: 'No data to display', // Message to show when array is presented, but contains no values
@@ -68,7 +72,9 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
       }
     })
   ],
-  providers: [],
+  providers: [
+    {provide: ErrorHandler, useClass: MyErrorHandler}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

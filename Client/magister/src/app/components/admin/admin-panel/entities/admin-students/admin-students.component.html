@@ -2,7 +2,115 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Уроки</h4>
+                <p>
+                    <a class="btn btn-primary mt-1 me-1 collapsed w-100" data-bs-toggle="collapse"
+                        href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        <i class="ri-user-add-line"></i> Додати користувача
+                    </a>
+                </p>
+                <div class="collapse" id="collapseExample" style="">
+                    <h4 class="card-title">Додати нового користувача</h4>
+                    <div class="row mb-3">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">Логін</label>
+                        <div class="col-sm-10">
+                            <input [(ngModel)]="createUserRequest.name" class="form-control" type="text"
+                                placeholder="Ім'я користувача" id="example-text-input">
+                        </div>
+                    </div>
+                    <!-- end row -->
+                    <div class="row mb-3">
+                        <label for="example-search-input" class="col-sm-2 col-form-label">Імейл</label>
+                        <div class="col-sm-10">
+                            <input [(ngModel)]="createUserRequest.email" class="form-control"
+                                type="search" placeholder="Імейл" id="example-search-input">
+                        </div>
+                    </div>
+                    <!-- end row -->
+                    <div class="row mb-3">
+                        <label for="example-tel-input" class="col-sm-2 col-form-label">Номер
+                            телефону</label>
+                        <div class="col-sm-10">
+                            <input [(ngModel)]="createUserRequest.phoneNumber" class="form-control"
+                                type="tel" placeholder="38-(067)-695-5526" id="example-tel-input">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">Адреса</label>
+                        <div class="col-sm-10">
+                            <input [(ngModel)]="createUserRequest.address" class="form-control" type="text"
+                                placeholder="Ім'я користувача" id="example-text-input">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">Ім'я</label>
+                        <div class="col-sm-10">
+                            <input [(ngModel)]="createUserRequest.firstName" class="form-control" type="text"
+                                placeholder="Ім'я користувача" id="example-text-input">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">Призвіще</label>
+                        <div class="col-sm-10">
+                            <input [(ngModel)]="createUserRequest.secondName" class="form-control" type="text"
+                                placeholder="Ім'я користувача" id="example-text-input">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <label for="example-text-input" class="col-sm-2 col-form-label">Група</label>
+                        <div class="col-sm-10">
+                            <input [(ngModel)]="createUserRequest.groupName" class="form-control" type="text"
+                                placeholder="Ім'я користувача" id="example-text-input">
+                        </div>
+                    </div>
+
+                    <!-- end row -->
+                    <div class="row mb-3">
+                        <label for="example-password-input"
+                            class="col-sm-2 col-form-label">Пароль</label>
+                        <div class="col-sm-10">
+                            <input [(ngModel)]="createUserRequest.password" class="form-control"
+                                type="text" value="hunter2" id="example-password-input">
+                        </div>
+                    </div>
+
+                    <!-- <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Роль</label>
+                        <div class="col-sm-10">
+                            <select [(ngModel)]="createUserRequest.role" class="form-select"
+                                aria-label="Default select example">
+                                <option selected="">Виберіть роль</option>
+                                <option value="student">Студент</option>
+                                <option value="teacher">Викладач</option>
+                                <option value="admin">Адміністратор</option>
+                            </select>
+                        </div>
+                    </div> -->
+
+                    <div>
+                        <button (click)="onCreateUser()" class="btn btn-primary"
+                            type="submit">Створити</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-12">
+
+
+
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Студенти</h4>
                 <div class="table-responsive" style="max-width: 100%;">
                     <table class="table table-striped" style="min-width: 1500px;">
                         <thead>
@@ -25,7 +133,7 @@
                                        {{student.name + ' ' + student.surname}} 
                                     </td>
                                     <td >
-                                        {{student.dateOfBirth | date:'M/d/yy' }} 
+                                        {{student.dateOfBirth | date:'M/d/yyyy' }} 
                                      </td>
                                      <td >
                                         {{student.phoneNumber }} 

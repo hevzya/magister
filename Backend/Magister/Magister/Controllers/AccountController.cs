@@ -18,9 +18,11 @@ namespace Magister.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IJwtService _jwtService;
+        private readonly MagisterContext _db;
 
         public AccountController(
             SignInManager<User> signInManager,
+            MagisterContext db,
             UserManager<User> userManager,
             RoleManager<Role> roleManager,
             IJwtService jwtService)
@@ -29,6 +31,7 @@ namespace Magister.Controllers
             _userManager = userManager;
             _jwtService = jwtService;
             _roleManager = roleManager;
+            _db = db;
         }
 
         // https://localhost:7211/api/Account/Login
@@ -77,15 +80,40 @@ namespace Magister.Controllers
                 return $"User with email {model.Email} already exists";
             }
 
+            var group = await _db.Groups.FirstOrDefaultAsync(x => x.GroupName == model.GroupName);
+
+            if(group == null)
+            {
+                var newGroup = await _db.Groups.AddAsync(new Group
+                {
+                    GroupName = model.GroupName
+                });
+                await _db.SaveChangesAsync();
+
+                group = await _db.Groups.FirstOrDefaultAsync(x => x.GroupName == model.GroupName);
+            }
+
             var res = await _userManager.CreateAsync(new User
             {
                 Email = model.Email,
                 UserName = model.Name,
                 PhoneNumber = model.PhoneNumber,
+                Student = new Student
+                {
+                    DateOfBirth = DateTime.Parse(model.DateOfBirth),
+                    GroupId = group.Id,
+                    Name = model.FirstName,
+                    Surname = model.SecondName,
+                    PhoneNumber = model.PhoneNumber,
+                    Address = model.Address
+                }
             }, model.Password);
 
             var createdUser = await _userManager.FindByEmailAsync(model.Email);
             await _userManager.AddToRoleAsync(createdUser, model.Role);
+
+            
+
 
             if (res.Succeeded)
             {
